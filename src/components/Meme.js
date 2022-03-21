@@ -22,17 +22,48 @@ export default function Meme() {
     }));
   }
 
+  const [inputData, setInputData] = React.useState({
+    topText: '',
+    bottomText: '',
+  });
+
+  console.log(inputData);
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setInputData((prevInputData) => ({
+      ...prevInputData,
+      [name]: value,
+    }));
+  }
+
   return (
     <main>
       <div className='meme-form'>
-        <input type='text' className='form__input' placeholder='Top text' />
-        <input type='text' className='form__input' placeholder='Bottom text' />
+        <input
+          type='text'
+          className='form__input'
+          placeholder='Top text'
+          onChange={handleChange}
+          name='topText'
+          value={inputData.topText}
+        />
+        <input
+          type='text'
+          className='form__input'
+          placeholder='Bottom text'
+          onChange={handleChange}
+          name='bottomText'
+          value={inputData.bottomText}
+        />
         <button className='form__button' onClick={getMemeImage}>
           Get a new Meme image
         </button>
       </div>
       <div className='meme-container'>
         <img src={meme.randomImage} alt='meme' />
+        <h2 className='meme--text top'>{inputData.topText}</h2>
+        <h2 className='meme--text bottom'>{inputData.bottomText}</h2>
       </div>
     </main>
   );
